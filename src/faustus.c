@@ -2135,6 +2135,7 @@ static int throttle_thermal_policy_write(struct asus_wmi *asus)
 	u32 retval;
 
 	value = asus->throttle_thermal_policy_mode;
+	pr_info("Set throttle thermal policy mode: %u\n", value);
 
 	err = asus_wmi_set_devstate(ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY,
 				    value, &retval);
@@ -2143,7 +2144,7 @@ static int throttle_thermal_policy_write(struct asus_wmi *asus)
 		return err;
 	}
 
-	if (retval != 1) {
+	if (retval != 0) {
 		pr_warn("Failed to set throttle thermal policy (retval): 0x%x\n",
 			retval);
 		return -EIO;
